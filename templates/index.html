@@ -1,18 +1,41 @@
 $def with (data)
 $var title: $data['title']
-$var base_url: $data['base_url']
+
 
 <div class="container">
-	<div class="hero-unit">
-	<h1>Git-full FTP</h1>
-	<p>
-		Git-full FTP is an application which provides you FTP deployment of your application via Git.
-	</p>
+	<div class="page-header">
+		<h1>Git-full FTP</h1>
+		<p>
+			Git-full FTP is an application which provides you FTP deployment of your application via Git.
+		</p>
+	</div>
 	<br>
-	<p>
-	<a class="btn btn-primary btn-large" href="/add">
-	Get Started
-	</a>
-	</p>
+	<div class="row">
+		<div class="span6 alpha">
+			<form action="/add" class="">
+				<label for="ftp">FTP URL</label>
+				<input type="text" required name="ftp" id="ftp" class="input-block-level">
+				<span class="help-block" style="font-style: italic; font-size: 10px;">Example: ftp://&lt;username&gt;:&lt;password&gt;@&lt;hostname&gt;:&lt;port&gt;/</span>
+				
+				<label for="dir">Directory Path</label>
+				<input type="text" required name="dir" id="dir" class="input-block-level">
+				<span class="help-block" style="font-style: italic; font-size: 10px;">Example: /home/user/public_html</span>
+				
+				<label for="zip">Repo ZIP URL</label>
+				<input type="text" required name="zip" id="zip" class="input-block-level">
+				<span class="help-block" style="font-style: italic; font-size: 10px;">
+					Github: https://github.com/&lt;username&gt;/&lt;repository&gt;/archive/master.zip
+					<br>
+					Bitbucket: https://bitbucket.org/&lt;username&gt;/&lt;repository&gt;/get/master.zip
+				</span>
+
+				<input type="submit" class="btn btn-primary btn-large btn-block" value="Add Server">
+			</form>
+		</div>
+		<div class="span6">
+			<div class="alert alert-info">
+				<b>Note:</b> If you want your code to be private, you can use <b><a href="http://bitbucket.org" target="_blank">Bitbucket</a></b>. It provides free private git repositories.
+			</div>
+		</div>
 	</div>
 </div>
