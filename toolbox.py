@@ -1,5 +1,9 @@
 import web
 
+
+def BASE_URL():
+	return "http://" + web.ctx.env.get('HTTP_HOST') + "/"
+
 BASE_TITLE = "Git-full FTP"
 VIEWS_DIR = 'templates/'
 LAYOUT_NAME = 'layout'

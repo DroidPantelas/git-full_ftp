@@ -12,12 +12,12 @@ $var title: $data['title']
 	<br>
 	<div class="row">
 		<div class="span6 alpha">
-			<form action="/add" class="">
+			<form action="/add" class="" method="POST">
 				<label for="ftp">FTP URL</label>
 				<input type="text" required name="ftp" id="ftp" class="input-block-level">
 				<span class="help-block" style="font-style: italic; font-size: 10px;">Example: ftp://&lt;username&gt;:&lt;password&gt;@&lt;hostname&gt;:&lt;port&gt;/</span>
 				
-				<label for="dir">Directory Path</label>
+				<label for="dir">Absolute Directory Path</label>
 				<input type="text" required name="dir" id="dir" class="input-block-level">
 				<span class="help-block" style="font-style: italic; font-size: 10px;">Example: /home/user/public_html</span>
 				
@@ -36,6 +36,9 @@ $var title: $data['title']
 			<div class="alert alert-info">
 				<b>Note:</b> If you want your code to be private, you can use <b><a href="http://bitbucket.org" target="_blank">Bitbucket</a></b>. It provides free private git repositories.
 			</div>
+			$if data.has_key('url'):
+				<div class="alert alert-success">Following is the URL which will synchronize your git repo with your FTP server. <pre>$data['url']</pre></div>
+				<div class="alert alert-info">To use this, you can either open this link every time you want to update FTP server, or you can add a WebHook to your git repository. <b><a href="http://net.tutsplus.com/tutorials/tools-and-tips/how-to-use-git-with-ftp/" target="_blank">In this article</a></b>, Nettuts+ shows how to do that with DeployHQ.</div>
 		</div>
 	</div>
 </div>
