@@ -12,6 +12,8 @@ class synchronizer():
         self.connection = ftplib.FTP()
 
     def stripslashes(self, string):
+        if string is "":
+            return string
         if string[-1] is "/":
             return string[:-1]
         else:
@@ -30,6 +32,8 @@ class synchronizer():
         self.connection.login(self.ftp_user, self.ftp_pass)
 
     def sync(self):
+        self.connect()
+
         remote_current = self.connection.pwd()
 
         dest_remote = self.remote_dir
@@ -40,9 +44,10 @@ class synchronizer():
         ##########
         # Commence os.walk and transfer
         ##########
-
+        print(self.local_dir)
         for case in os.walk(self.local_dir):
             path = case[0]
+            print(path)
             dirs = case[1]
             files = case[2]
 

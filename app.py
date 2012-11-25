@@ -64,7 +64,7 @@ class sync:
         host_port = reverse(tmp2[0])
         host, port = host_port.split(":")
 
-        s = synchronizer(host, port, username, password, local_dirname, config['dir'])
+        s = synchronizer(host, port, username, password, absolute_path("tmp/" + local_dirname), config['dir'])
         s.sync()
 
         delete_dir(absolute_path("tmp/" + local_dirname))
