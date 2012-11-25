@@ -1,8 +1,13 @@
 import web
+import os
 
 
 def BASE_URL():
-	return "http://" + web.ctx.env.get('HTTP_HOST') + "/"
+	if os.environ.get('PYTHONENV') == "production":
+		return "http://git-full-ftp.herokuapp.com/"
+	else:
+		return "http://" + web.ctx.env.get('HTTP_HOST') + "/"
+
 
 BASE_TITLE = "Git-full FTP"
 VIEWS_DIR = 'templates/'
