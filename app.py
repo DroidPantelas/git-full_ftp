@@ -1,4 +1,5 @@
 import web
+import urllib2
 from toolbox import *
 from encrypter import *
 
@@ -11,7 +12,8 @@ from encrypter import *
 
 urls = (
     "/", "index",
-    "/add/?", "add"
+    "/add/?", "add",
+    "/sync/?", "sync"
 )
 base_url = BASE_URL()
 
@@ -32,8 +34,17 @@ class add:
 
 
 class sync:
-    def get(self):
-        pass
+    def GET(self):
+        data = web.input()
+        config = get_data(data)
+
+        buff = urllib2.urlopen(config['zip'])
+        f = open(absolute_path("tmp/" + (config['zip'].split("/")).pop()), "wb")
+        f.write(buff.read())
+        f.close()
+
+        return data['uid']
+
 
 if __name__ == "__main__": 
     app = web.application(urls, globals())

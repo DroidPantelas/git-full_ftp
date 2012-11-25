@@ -1,12 +1,12 @@
-import web
 import os
+import web
 
 
 def BASE_URL():
 	if os.environ.get('PYTHONENV') == "production":
 		return "http://git-full-ftp.herokuapp.com/"
 	else:
-		return "http://" + web.ctx.env.get('HTTP_HOST') + "/"
+		return "http://localhost:8080/"
 
 
 BASE_TITLE = "Git-full FTP"
@@ -27,3 +27,6 @@ def render(view, data=None, title=''):
 	# data['base_url'] = BASE_URL
 	# data['static_url'] = STATIC_URL
 	return eval("render_engine." + str(view) + "(data)")
+
+def absolute_path(*x):
+	return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
