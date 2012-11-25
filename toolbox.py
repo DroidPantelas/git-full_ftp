@@ -30,3 +30,16 @@ def render(view, data=None, title=''):
 
 def absolute_path(*x):
 	return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
+
+def delete_dir(abs_path):
+	for root, dirs, files in os.walk(abs_path):
+		for name in files:
+			os.remove(os.path.join(root, name))
+        for name in dirs:
+        	try:
+        		os.removedirs(os.path.join(root, name))
+        	except Exception:
+        		delete_dir(os.path.join(root, name))
+
+def reverse(string):
+	return string[::-1]
