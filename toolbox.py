@@ -15,6 +15,10 @@ LAYOUT_NAME = 'layout'
 render_engine = web.template.render(VIEWS_DIR, base=LAYOUT_NAME)
 
 
+
+############################################
+# Modifying web.py template rendering function to my old pattern
+############################################
 def render(view, data=None, title=''):
 	if data is None:
 		data = {}
@@ -28,9 +32,18 @@ def render(view, data=None, title=''):
 	# data['static_url'] = STATIC_URL
 	return eval("render_engine." + str(view) + "(data)")
 
+
+##############################################
+# Gives absolute path for path relative to executing script
+##############################################
 def absolute_path(*x):
 	return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
+
+
+###################################
+# Recursively delete directory on local machine
+###################################
 def delete_dir(abs_path):
 	# shutil.rmtree(abs_path)
 
@@ -47,5 +60,9 @@ def delete_dir(abs_path):
 				except Exception:
 					pass
 
+
+######################
+# Reverse string
+######################
 def reverse(string):
 	return string[::-1]
