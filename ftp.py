@@ -47,7 +47,6 @@ class synchronizer():
         print(self.local_dir)
         for case in os.walk(self.local_dir):
             path = case[0]
-            print(path)
             dirs = case[1]
             files = case[2]
 
@@ -72,8 +71,11 @@ class synchronizer():
                 self.connection.storbinary("STOR " + f, open(path + "/" + f, "rb"))
 
             for elem in self.connection.nlst():
+                if elem == "." or elem == "..":
+                    continue
                 if self.is_dir(elem) and (not elem in dirs):
                     # self.connection.rmd(elem)
+                    # print(elem)
                     self.delete_dir(elem)
                 elif (not self.is_dir(elem)) and (not elem in files):
                     self.connection.delete(elem)
@@ -101,7 +103,10 @@ class synchronizer():
                 try:
                     self.connection.delete(elem)
                 except Exception:
-                    self.delete_dir(elem)
+                    try:
+                        self.connection.rmd(elem)
+                    except Exception:
+                        self.delete_dir(elem)
 
-        self.connection.cwd(current)
-        self.connection.rmd(dirname)
+            self.connection.cwd(current)
+            self.connection.rmd(dirname)

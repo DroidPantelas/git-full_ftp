@@ -1,6 +1,5 @@
 import os
 import web
-import shutil
 
 
 def BASE_URL():
@@ -25,7 +24,7 @@ def render(view, data=None, title=''):
 		title = title + " - " + BASE_TITLE
 
 	data['title'] = title
-	# data['base_url'] = BASE_URL
+	data['base_url'] = BASE_URL
 	# data['static_url'] = STATIC_URL
 	return eval("render_engine." + str(view) + "(data)")
 
@@ -33,16 +32,20 @@ def absolute_path(*x):
 	return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
 def delete_dir(abs_path):
-	shutil.rmtree(abs_path)
+	# shutil.rmtree(abs_path)
 
-	# for root, dirs, files in os.walk(abs_path):
-	# 	for name in files:
-	# 		os.remove(os.path.join(root, name))
- #        for name in dirs:
- #        	try:
- #        		os.removedirs(os.path.join(root, name))
- #        	except Exception:
- #        		delete_dir(os.path.join(root, name))
+	for root, dirs, files in os.walk(abs_path):
+		for name in files:
+			os.remove(os.path.join(root, name))
+		for name in dirs:
+			try:
+				os.removedirs(os.path.join(root, name))
+			except Exception:
+				delete_dir(os.path.join(root, name))
+				try:
+					os.removedirs(os.path.join(root, name))
+				except Exception:
+					pass
 
 def reverse(string):
 	return string[::-1]
